@@ -8,9 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var sessionStore = SessionStore()
+    
+    init() {
+        sessionStore.listen()
+    }
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ChatList()
+            .fullScreenCover(isPresented: $sessionStore.isAnon, content: {
+                Login()
+            })
     }
 }
 
